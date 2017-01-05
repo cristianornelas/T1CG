@@ -15,6 +15,9 @@ import org.lwjgl.glfw.GLFW;
  * 
  */
 public class Bird {
+    
+    //  Essa classe define um passaro
+    
     private float SIZE = 1.0f;
     private VertexArray mesh;
     private Texture texture;

@@ -44,6 +44,7 @@ public class Shader {
         enabled = false;
     }
     
+    //  Carrega todos os shaders
     public static void loadAll() {
         BG = new Shader("shaders/bg.vert", "shaders/bg.frag");
         BIRD = new Shader("shaders/bird.vert", "shaders/bird.frag");

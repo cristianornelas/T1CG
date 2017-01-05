@@ -42,6 +42,8 @@ public class T1cg implements Runnable{
     @Override
     public void run() {
         init();
+        
+        // Determina um timer para controlar a velocidade com que o jogo avanca
         long lastTime = System.nanoTime();
         double ns = 1000000000.0 / 60.0;
         double delta = 0.0;
@@ -53,6 +55,8 @@ public class T1cg implements Runnable{
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+            
+            //  Isso eh invocado a cada 60fps (valor de delta)
             if (delta >= 1.0) {
                 update();
                 updates++;
@@ -121,11 +125,14 @@ public class T1cg implements Runnable{
         System.out.println("OpenGL: " + glGetString(GL_VERSION));   
         
         
-        
+        //  Carrega os Shaders
         Shader.loadAll();
         Shader.BG.enable();
-        Matrix4f pr_matrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * 9.0f 
-                / 16.0f , 10.0f * 9.0f / 16.0f, -1.0f, 1.0f);
+        
+        //  Cria a matriz de projecao
+        Matrix4f pr_matrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * 9.0f / 16.0f , 10.0f * 9.0f / 16.0f, -1.0f, 1.0f);
+        
+        //  Cria os shaders para BG, Bird e pipe.
         Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
         Shader.BG.setUniform1i("tex", 1);
         

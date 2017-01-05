@@ -37,6 +37,8 @@ public class Level {
     private boolean control = true, reset = false;
     
     public Level() {
+        
+        //  Vertices para o backgound
         float[] vertices = new float[] {
             -10.0f, -10.0f * 9.0f / 16.0f, 0.0f,
             -10.0f,  10.0f * 9.0f / 16.0f, 0.0f,
@@ -44,11 +46,16 @@ public class Level {
              0.0f,  -10.0f * 9.0f / 16.0f, 0.0f,
         };
         
+        //  Cria 2 triangulos, os numeros aqui representam as linhas dos vertices
+        //  que serao utilizadas para criar esses triangulos.
+        //  Isso evitar criar varias matrizes de vertices.
         byte[] indices = new byte[] {
             0, 1, 2,
             2, 3, 0
         };
         
+        
+        //  Coordenadas de texturas. Tambem aplicada aos vertices.
         float[] tcs = new float[] {
             0, 1,
             0, 0,
@@ -56,10 +63,10 @@ public class Level {
             1, 1
         };
         
+        //  Cria o background, birds and pipes
         backgroud = new VertexArray(vertices, indices, tcs);
         bgTexture = new Texture("res/bg.jpeg");
         bird = new Bird();
-        
         createPipes();
     }
     
@@ -80,6 +87,9 @@ public class Level {
     }
     
     public void update() {
+        
+        //  xScroll varia conforme avancamos na horizontal, esse trecho atualiza 
+        //  o background e cria mais pipes.
         if (control){
             xScroll--;
             if (-xScroll % 335 == 0)
@@ -87,6 +97,7 @@ public class Level {
             if (-xScroll > 250 && -xScroll % 120 == 0)
                 updatePipes();
         }
+        
         bird.update();
         
         if (control && collision()) {
@@ -152,9 +163,15 @@ public class Level {
     }
     
     public void render() {
+        //  Renderiza o background conforme ele se move, assim como os novos pipes.
+        
         bgTexture.bind();
         Shader.BG.enable();
         backgroud.bind();
+        
+        //  Utiliza um loop pois o background sempre avanca.
+        //  Esse codigo nao insere uma nova imagem, mas sim retira uma imagem do
+        //  inicio e poe no final. Poupando recursos.
         for (int i = bgMov; i < bgMov + 4; i++) {
             Shader.BG.setUniformMat4f("vw_matrix", Matrix4f.translate(new Vector3f(i * 10 + xScroll * 0.03f, 0.0f, 0.0f)));
             backgroud.draw();
