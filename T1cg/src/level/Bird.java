@@ -24,13 +24,14 @@ public class Bird {
     private Vector3f position = new Vector3f();
     private float rot;
     private float delta = 0.0f;
+    public boolean control = true;
     
     public Bird() {
         float[] vertices = new float[] {
-            -SIZE / 2.0f, -SIZE / 2.0f, 0.1f,
-            -SIZE / 2.0f,  SIZE / 2.0f, 0.1f,
-             SIZE / 2.0f,  SIZE / 2.0f, 0.1f,
-             SIZE / 2.0f, -SIZE / 2.0f, 0.1f,            
+            -SIZE / 2.0f, -SIZE / 2.0f, 0.2f,
+            -SIZE / 2.0f,  SIZE / 2.0f, 0.2f,
+             SIZE / 2.0f,  SIZE / 2.0f, 0.2f,
+             SIZE / 2.0f, -SIZE / 2.0f, 0.2f,            
         };
         
         byte[] indices = new byte[] {
@@ -49,17 +50,20 @@ public class Bird {
         texture = new Texture("res/bird.png");
     }
     
+    public float getY(){
+        return position.y;
+    }
     public void update() {
         position.y  -= delta;
-        if (Input.isKeyDown(GLFW.GLFW_KEY_SPACE))
-            delta = -0.15f;
+        if (control && Input.isKeyDown(GLFW.GLFW_KEY_SPACE))
+            delta = -0.13f;
         else
             delta += 0.01f;
         
         rot = -delta * 90.0f;
     }
     
-    private void fall() {
+    public void fall() {
         delta = -0.15f;
     }
 
@@ -69,6 +73,10 @@ public class Bird {
         texture.bind();
         mesh.render();
         Shader.BIRD.disable();
+    }
+
+    public float getSize() {
+        return SIZE;
     }
     
 }

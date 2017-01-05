@@ -64,6 +64,8 @@ public class T1cg implements Runnable{
                 running = false;
             }
         }
+        glfwDestroyWindow(window);
+        glfwTerminate();
     }
     
     private void init() {
@@ -101,6 +103,9 @@ public class T1cg implements Runnable{
         Shader.BIRD.setUniformMat4f("pr_matrix", pr_matrix);
         Shader.BIRD.setUniform1i("tex", 1);
         
+        Shader.PIPE.setUniformMat4f("pr_matrix", pr_matrix);
+        Shader.PIPE.setUniform1i("tex", 1);
+        
         Shader.BG.disable();
         
         level = new Level();
@@ -110,6 +115,8 @@ public class T1cg implements Runnable{
     private void update(){
         glfwPollEvents();
         level.update();
+        if (level.isGameOver())
+            level = new Level();
     }
     
     private void render() {
