@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.io.BufferedReader;
@@ -14,12 +9,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
 public class FileUtils {
-    private FileUtils() {
-        
-    }
+    
+    //  Esta classe tem como finalidade ler um arquivo e retornar-lo como string
+    private FileUtils() {}
     
     public static String loadAsString(String file) {
         StringBuilder result = new StringBuilder();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package graphics;
 
 import java.awt.image.BufferedImage;
@@ -18,16 +13,24 @@ import utils.BufferUtils;
 
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
 public class Texture {
+    
+    //  Como o nome sujere sugere essa classe cria texturas.
+    //  Isso significa que ela eh responsavel por carregar uma imagem e
+    //  tratar essa imagem de forma que o OpenGL consiga lidar com ela.
     private int width, height;
     private int texture;
     
+    //  Inicializa a textura invocando seu carregamento de um arquivo
     public Texture(String path) {
         texture = load(path);
     }
     
+    //  Carrega uma imagem e cria a textura
     private int load(String path) {
         int[] pixels = null;
         try {
@@ -45,7 +48,8 @@ public class Texture {
             ex.printStackTrace();
         }
         
-        //Tem que rearrajar todas os cores pq opengl so aceita na ordem inversa
+        //  Tem que rearrajar todas os cores pois o OpenGL trabalha com cores
+        //  na ordem inversa.
         int[] data = new int[width * height];
         for (int i = 0; i < width * height; i++) {
                 int a = (pixels[i] & 0xff000000) >> 24;
@@ -59,14 +63,14 @@ public class Texture {
         int result = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, result);
         
-        //Isso aqui faz as imagens nao ficarem distorcidas quando redimensionadas
+        //  Isso aqui faz as imagens nao ficarem distorcidas quando 
+        //  redimensionadas. Mantendo-as nitidas ao inves de borradas.
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         
         glTexImage2D(GL_TEXTURE_2D, 0 , GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, BufferUtils.createIntBuffer(data));
         glBindTexture(GL_TEXTURE_2D, 0);
-        
-        
+         
         return result;
     }
     
