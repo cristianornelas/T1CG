@@ -138,6 +138,10 @@ public class Level {
                 if (by1 > py0 && by0 < py1)
                     return true;
             }
+            
+            System.out.println(by0);
+            if (by0 < -6 || by1 > 6)
+               return true;
            
         }
         return false;
