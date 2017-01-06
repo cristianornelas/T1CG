@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package level;
 
 import graphics.Shader;
@@ -15,9 +10,14 @@ import org.lwjgl.glfw.GLFW;
 
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
 public class Bird {
+    
+    //  Essa classe define um passaro
+    
     private float SIZE = 1.0f;
     private VertexArray mesh;
     private Texture texture;

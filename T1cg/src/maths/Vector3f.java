@@ -1,16 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package maths;
 
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
-public class Vector3f{
-    //Valor z é o valor da ordem de renderização
+public class Vector3f {
+    
+    //  Nesta classe um vetor tridimensional eh definido.
+    //  Duas dimensoes (x, y) sao destinadas a posicionamento.
+    //  A terceira dimensao (z) eh destinada a ordem de renderizacao, ie,
+    //  elementos com um valor maior de z serao exibidos sobre outros elementos
+    //  de ordem mais baixa.
+    
     public float x, y, z;
     
     public Vector3f(){
@@ -23,7 +26,5 @@ public class Vector3f{
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-    
-    
+    }    
 }

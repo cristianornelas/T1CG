@@ -1,23 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package graphics;
-
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 import utils.BufferUtils;
+
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
-
-//Manda pro shader que fala pra GPU renderizar os vertices
 public class VertexArray {
+    
+    //  Esta classe envia um array de vertices para o shader que, por sua vez 
+    //  comunica a GPU para renderiza-los. Criando as redes de objetos fazendo
+    //  com que eles existam fisicamente.
+    
+    
+    //  As variaveis:
+    //  count: o numero de vertices que serao renderizados
+    //  vao: vertice array object
+    //  vbo: vertice buffer object
+    //  ibo: index buffer object
+    //  tbo: texture buffer object
     private int count;
     private int vao, vbo, ibo, tbo;
     
@@ -25,16 +32,21 @@ public class VertexArray {
         this.count = count;
         vao = glGenVertexArrays();
     }
+    
     public VertexArray(float[] vertices, byte[] indices, float[] textureCoordinates){
+        
+        // Conta os indices
         count = indices.length;
     
+        // Conecta os vertices
         vao = glGenVertexArrays();
         glBindVertexArray(vao);
         
+        //  Cria os buffers necessarios e depois os conecta.
         vbo = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, BufferUtils.createFloatBuffer(vertices), GL_STATIC_DRAW);
-        glVertexAttribPointer(Shader.VERTEX_ATTRIB, 3, GL_FLOAT, false, 0, 0);
+        glVertexAttribPointer(Shader.VERTEX_ATTRIB, 3, GL_FLOAT, false, 0, 0); // 3 pois temos um vetor x, y, z
         glEnableVertexAttribArray(Shader.VERTEX_ATTRIB);
         
         tbo = glGenBuffers();

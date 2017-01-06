@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.nio.ByteBuffer;
@@ -12,11 +7,14 @@ import java.nio.IntBuffer;
 
 /**
  *
- * @author Cristiano
+ * @authors Cristiano & Jefferson
+ * Computacao Grafica - T1: Flappy Bird
+ * 
  */
 public class BufferUtils {
-    private BufferUtils() {
-        
+    
+    //  This class implements the buffers supported by LWJGL/OpenGL
+    private BufferUtils() { 
     }
     
     public static ByteBuffer createByteBuffer(byte[] array) {
