@@ -1,2 +1,2 @@
-# T1CG
+# Flappy Bird
 Trabalho 1 Computação Gráfica
