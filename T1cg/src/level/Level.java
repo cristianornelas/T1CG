@@ -9,6 +9,8 @@ import graphics.Shader;
 import graphics.Texture;
 import graphics.VertexArray;
 import input.Input;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import maths.Matrix4f;
 import maths.Vector3f;
@@ -24,6 +26,7 @@ public class Level {
     private VertexArray backgroud;
     private Texture bgTexture;
     private Bird bird;
+    private List<Number> numbers;
     
     private int xScroll = 0;
     private int bgMov = 0;
@@ -32,7 +35,7 @@ public class Level {
     private int index = 0;
     
     private Random random = new Random();
-    
+    private int points = 0;
     private final float OFFSET = 5.0f;
     private boolean control = true, reset = false;
     
@@ -57,8 +60,16 @@ public class Level {
         };
         
         backgroud = new VertexArray(vertices, indices, tcs);
-        bgTexture = new Texture("res/bg.jpeg");
+        bgTexture = new Texture("res/bg.jpeg");      
+        
         bird = new Bird();
+        numbers = new ArrayList<Number>();
+        float xPos = -9.0f;
+        for (int i = 0; i < 10; i++) {
+            Number number = new Number(Integer.toString(0), xPos);
+            numbers.add(number);
+            xPos += 0.5f;
+        }
         
         createPipes();
     }
@@ -95,6 +106,14 @@ public class Level {
             control = false;
         }
         
+        if (score()) {
+            points++;
+            
+            for(int i = Integer.toString(points/2).length(); i>0; i--){
+                numbers.get(i-1).updateTexture(String.valueOf(Integer.toString(points/2).charAt(i-1)));
+            }
+        }
+        
         if (!control && Input.isKeyDown(GLFW_KEY_SPACE)){
             reset = true;
         }
@@ -113,7 +132,6 @@ public class Level {
         }
         Pipe.getMesh().unbind();
         Pipe.getTexture().unbind();
-        //NAO TEM ISSO SE DER PAU TIRA
         Shader.PIPE.disable();
     }
     
@@ -139,11 +157,36 @@ public class Level {
                     return true;
             }
             
-            System.out.println(by0);
+            //System.out.println(by0);
             if (by0 < -6 || by1 > 6)
                return true;
            
         }
+        return false;
+    }
+    
+    private boolean score() {
+        for (int i = 0; i < 5 * 2; i++) {
+            float bx = -xScroll * 0.05f;
+            float by = bird.getY();
+            float px = pipes[i].getX();
+            float py = pipes[i].getY();
+            
+            float bx0 = bx - bird.getSize() / 2.0f;
+            float bx1 = bx + bird.getSize() / 2.0f;
+            float by0 = by - bird.getSize() / 2.0f;
+            float by1 = by + bird.getSize() / 2.0f;
+            
+            float px0 = px;
+            float px1 = px + Pipe.getWidth();
+            float py0 = py;
+            float py1 = py + Pipe.getHeigth();
+        
+            if (bx > px && points % 10 == i)
+                return true;
+        
+        }
+        
         return false;
     }
     
@@ -165,5 +208,16 @@ public class Level {
         bgTexture.unbind();
         renderPipes();
         bird.render();
+        /*for (Number number : numbers) {
+            number.render();
+        }
+        for (Number number : numbers) {
+            number.printNumber();
+        }
+        System.out.println();
+        */
+        for(int i = Integer.toString(points/2).length(); i>0; i--){
+            numbers.get(i-1).render();
+        }
     }
 }

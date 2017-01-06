@@ -55,7 +55,7 @@ public class T1cg implements Runnable{
             frames++;
             if(System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
-                System.out.println(updates + "ups, " + frames + "fps");
+                //System.out.println(updates + "ups, " + frames + "fps");
                 frames = 0;
                 updates = 0;
             } 
@@ -99,6 +99,7 @@ public class T1cg implements Runnable{
         Matrix4f pr_matrix = Matrix4f.orthographic(-10.0f, 10.0f, -10.0f * 9.0f / 16.0f , 10.0f * 9.0f / 16.0f, -1.0f, 1.0f);
         Shader.BG.setUniformMat4f("pr_matrix", pr_matrix);
         Shader.BG.setUniform1i("tex", 1);
+        Shader.BG.disable();
         
         Shader.BIRD.setUniformMat4f("pr_matrix", pr_matrix);
         Shader.BIRD.setUniform1i("tex", 1);
@@ -106,7 +107,10 @@ public class T1cg implements Runnable{
         Shader.PIPE.setUniformMat4f("pr_matrix", pr_matrix);
         Shader.PIPE.setUniform1i("tex", 1);
         
-        Shader.BG.disable();
+        Shader.NUMBER.setUniformMat4f("pr_matrix", pr_matrix);
+        Shader.NUMBER.setUniform1i("tex", 1);
+        
+        
         
         level = new Level();
         
