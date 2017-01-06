@@ -71,7 +71,7 @@ public class Level {
         bgTexture = new Texture("res/bg.jpeg");      
         
         bird = new Bird();
-<<<<<<< HEAD
+        
         numbers = new ArrayList<Number>();
         float xPos = -9.0f;
         for (int i = 0; i < 10; i++) {
@@ -80,8 +80,6 @@ public class Level {
             xPos += 0.5f;
         }
         
-=======
->>>>>>> 85bc722b6cd2580105aa97b7a3001406af03a3f6
         createPipes();
     }
     
