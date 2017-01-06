@@ -77,6 +77,8 @@ public class Bird {
     public void render() {
         //  Renderiza o passaro se movendo na tela
         Shader.BIRD.enable();
+        
+        //  Aqui aplicamos rotacao para fazer com que o passo se incline no pulo/queda
         Shader.BIRD.setUniformMat4f("ml_matrix", Matrix4f.translate(position).multiply(Matrix4f.rotate(rot)));
         texture.bind();
         mesh.render();

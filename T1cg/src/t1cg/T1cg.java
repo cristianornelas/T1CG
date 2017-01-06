@@ -78,7 +78,7 @@ public class T1cg implements Runnable{
                 running = false;
         }
         
-        
+        //  Evita erros ao fechar o jogo.
         glfwDestroyWindow(window);
         glfwTerminate();
     }

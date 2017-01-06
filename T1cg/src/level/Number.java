@@ -66,8 +66,6 @@ public class Number {
         texture.bind();
         this.number = number;
         texture = new Texture("res/" + this.number + ".png");
-        //System.out.println(number);
-        //texture = new Texture("res/0.png");
     }
     
     public void printNumber(){

@@ -19,6 +19,7 @@ public class Pipe {
     private static VertexArray mesh;
     
     public static void create() {
+        //  Mesma logica utilizada em Level
         float[] vertices = new float[] {
             0.0f, 0.0f, 0.1f,
             0.0f, height, 0.1f,
@@ -43,6 +44,8 @@ public class Pipe {
     }
     
     public Pipe(float x, float y) {
+        
+        // Aqui um pipe eh criado, e movido para uma posicao especifica
         position.x = x;
         position.y = y; 
         ml_matrix = Matrix4f.translate(position); 

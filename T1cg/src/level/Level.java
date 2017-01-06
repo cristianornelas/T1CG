@@ -85,6 +85,10 @@ public class Level {
     
     private void createPipes() {
         Pipe.create();
+        
+        //  Esse loop faz com que sejam criados 10 pipes.
+        //  Sendo 5 em cima e 5 em baixo
+        //  Cada passo cria dois pipes com espacamento randomico
         for (int i = 0; i < 5 * 2; i += 2) {
             pipes[i] = new Pipe(OFFSET + index * 3.0f, random.nextFloat() * 4.0f);
             pipes[i+1] = new Pipe(pipes[i].getX(), pipes[i].getY() - 12.0f);
@@ -93,6 +97,8 @@ public class Level {
     }
     
     private void updatePipes() {
+        //  Aqui sao criados novos pipes conforme o cenario avanca.
+        //  OFFSET corrige o posicionamento dos pipes
         pipes[index % 10] = new Pipe(OFFSET + index * 3.0f, random.nextFloat() * 4.0f);
         pipes[(index + 1) % 10] = new Pipe(pipes[index % 10].getX(), pipes[index % 10].getY() - 12.0f);
     
@@ -120,6 +126,7 @@ public class Level {
             control = false;
         }
         
+        //  Controla a pontuacao o usuario
         if (score()) {
             points++;
             
@@ -128,17 +135,21 @@ public class Level {
             }
         }
         
+        //  Controla o reset do game
         if (!control && Input.isKeyDown(GLFW_KEY_SPACE)){
             reset = true;
         }
     }
     
     private void renderPipes() {
+        
+        //  Aqui os pipes sao renderizados e movidos assim como no background
         Shader.PIPE.enable();
         Shader.PIPE.setUniformMat4f("vw_matrix", Matrix4f.translate(new Vector3f(xScroll * 0.05f, 0.0f, 0.0f)));
         Pipe.getTexture().bind();
         Pipe.getMesh().bind();
         
+        //  Aqui os pipes sao reconstruidos com um determinado espaco entre eles.
         for (int i = 0; i < 5 * 2; i++) {
             Shader.PIPE.setUniformMat4f("ml_matrix", pipes[i].getModelMatrix());
             Shader.PIPE.setUniform1i("top", i % 2 == 0 ? 1 : 0);
@@ -150,28 +161,36 @@ public class Level {
     }
     
     private boolean collision() {
+        
+        //  Para cada pipe faca
         for (int i = 0; i < 5 * 2; i++) {
+            
+            //  Primeiro coletamos a posicao da ave e do pipe
             float bx = -xScroll * 0.05f;
             float by = bird.getY();
             float px = pipes[i].getX();
             float py = pipes[i].getY();
             
+            //  Pega o tamanho da ave, logo a area que ela esta ocupando na
+            //  tela
             float bx0 = bx - bird.getSize() / 2.0f;
             float bx1 = bx + bird.getSize() / 2.0f;
             float by0 = by - bird.getSize() / 2.0f;
             float by1 = by + bird.getSize() / 2.0f;
             
+            //  Pega o tamanho do pipe, logo a area que ele esta ocupando
             float px0 = px;
             float px1 = px + Pipe.getWidth();
             float py0 = py;
             float py1 = py + Pipe.getHeigth();
             
+            //  Compara aonde o pipe esta com aonde a ave esta
+            //  Se um invadir o outro, entao houve colisao
             if (bx1 > px0 && bx0 < px1) {
                 if (by1 > py0 && by0 < py1)
                     return true;
             }
-            
-            //System.out.println(by0);
+
             if (by0 < -6 || by1 > 6)
                return true;
            
@@ -180,6 +199,9 @@ public class Level {
     }
     
     private boolean score() {
+        
+        //  Baseado na posicao do passaro e por quantos pipes ela passa, 
+        //  o score aumenta.
         for (int i = 0; i < 5 * 2; i++) {
             float bx = -xScroll * 0.05f;
             float by = bird.getY();
@@ -223,19 +245,13 @@ public class Level {
             backgroud.draw();
         }
         
+        // Renderiza tudo
         backgroud.render();
         Shader.BG.disable();
         bgTexture.unbind();
         renderPipes();
         bird.render();
-        /*for (Number number : numbers) {
-            number.render();
-        }
-        for (Number number : numbers) {
-            number.printNumber();
-        }
-        System.out.println();
-        */
+
         for(int i = Integer.toString(points/2).length(); i>0; i--){
             numbers.get(i-1).render();
         }
