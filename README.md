@@ -5,7 +5,7 @@ This game was made as first assignment for a Computer Graphics class from Federa
 
 What does this game do?
 -------------
-Flappy Bird is a game which the gamer can control a bird to avoid it to colide with pipes that randomly appear on screen. As the bird moves horizontaly the player can hit 'SPACE' to make the bird fly upwards to avoid a colision.
+Flappy Bird is a game which the player can control a bird to avoid it to colide with pipes that randomly appear on screen. As the bird moves horizontaly the player can hit 'SPACE' to make the bird fly upwards to avoid a colision.
 
 What was used?
 -------------
