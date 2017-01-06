@@ -21,7 +21,7 @@ public class Shader {
     private Map<String, Integer> locationCache = new HashMap<String, Integer>();
     public static final int VERTEX_ATTRIB = 0;
     public static final int TCOORD = 1;
-    public static Shader BG, BIRD, PIPE;
+    public static Shader BG, BIRD, PIPE, NUMBER;
     private boolean enabled = false;
         
 
@@ -49,6 +49,7 @@ public class Shader {
         BG = new Shader("shaders/bg.vert", "shaders/bg.frag");
         BIRD = new Shader("shaders/bird.vert", "shaders/bird.frag");
         PIPE = new Shader("shaders/pipe.vert", "shaders/pipe.frag");
+        NUMBER = new Shader("shaders/number.vert", "shaders/number.frag");
     }
     
     //  Os metodos setUniform sao utilizados para transmitir dados da
