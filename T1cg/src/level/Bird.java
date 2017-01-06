@@ -27,6 +27,8 @@ public class Bird {
     public boolean control = true;
     
     public Bird() {
+        
+        //  Aqui aplicamos a mesma logica que usamos em Level
         float[] vertices = new float[] {
             -SIZE / 2.0f, -SIZE / 2.0f, 0.2f,
             -SIZE / 2.0f,  SIZE / 2.0f, 0.2f,
@@ -53,7 +55,11 @@ public class Bird {
     public float getY(){
         return position.y;
     }
+    
     public void update() {
+        //  Configura a posicao do passaro e o que acontece quando espaco eh
+        //  pressionado
+        
         position.y  -= delta;
         if (control && Input.isKeyDown(GLFW.GLFW_KEY_SPACE))
             delta = -0.13f;
@@ -64,10 +70,12 @@ public class Bird {
     }
     
     public void fall() {
+        //  Determina a queda do passaro
         delta = -0.15f;
     }
 
     public void render() {
+        //  Renderiza o passaro se movendo na tela
         Shader.BIRD.enable();
         Shader.BIRD.setUniformMat4f("ml_matrix", Matrix4f.translate(position).multiply(Matrix4f.rotate(rot)));
         texture.bind();
