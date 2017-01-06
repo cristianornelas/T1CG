@@ -98,6 +98,7 @@ public class Level {
                 updatePipes();
         }
         
+        //  Faz com que o passaro se mova
         bird.update();
         
         if (control && collision()) {
